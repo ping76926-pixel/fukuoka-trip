@@ -2,8 +2,20 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>福岡放飛自由行</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="description" content="福岡自由行規劃和編輯應用">
+  <meta name="theme-color" content="#8BA68D">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="福岡自由行">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%238BA68D'/><text x='50%' y='50%' font-size='80' font-weight='bold' font-family='Arial' fill='white' text-anchor='middle' dominant-baseline='middle'>福</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' fill='%238BA68D' rx='39'/><text x='90' y='90' font-size='80' font-weight='bold' font-family='Arial' fill='white' text-anchor='middle' dominant-baseline='middle'>福</text></svg>">
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="importmap">
     {
@@ -724,6 +736,19 @@
 
     const root = createRoot(document.getElementById('root'));
     root.render(<App />);
+
+    // Register Service Worker for PWA support
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => {
+            console.log('Service Worker registered:', reg);
+          })
+          .catch(err => {
+            console.log('Service Worker registration failed:', err);
+          });
+      });
+    }
   </script>
 </body>
 </html>
