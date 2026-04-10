@@ -1,0 +1,32 @@
+{
+  "short_name": "福岡之旅",
+  "name": "Fukuoka Travel App",
+  "description": "福岡自由行規劃和編輯應用",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F5F4EA",
+  "theme_color": "#8BA68D",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["travel", "lifestyle"],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect width='540' height='720' fill='%23F5F4EA'/><text x='50%' y='360' font-size='60' font-family='Arial' fill='%238BA68D' text-anchor='middle' dominant-baseline='middle'>福岡自由行</text></svg>",
+      "sizes": "540x720",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    }
+  ]
+}
