@@ -3,20 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>福岡放飛自由行</title>
+  <title>福岡放飛</title>
   
-  <!-- PWA Meta Tags -->
-  <meta name="description" content="福岡自由行規劃和編輯應用">
-  <meta name="theme-color" content="#8BA68D">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content="福岡之旅" />
-
-  <link rel="manifest" href="site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="福岡放飛">
+  <meta name="theme-color" content="#F5F4EA">
+  
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%238BA68D%22/><text x=%2250%22 y=%2265%22 font-family=%22sans-serif%22 font-weight=%22bold%22 font-size=%2235%22 text-anchor=%22middle%22 fill=%22white%22>福岡</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%238BA68D%22/><text x=%2250%22 y=%2265%22 font-family=%22sans-serif%22 font-weight=%22bold%22 font-size=%2235%22 text-anchor=%22middle%22 fill=%22white%22>福岡</text></svg>">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="importmap">
@@ -36,9 +32,11 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     body { -webkit-tap-highlight-color: transparent; }
+    main { padding-bottom: env(safe-area-inset-bottom); }
+    nav { padding-bottom: calc(0.75rem + env(safe-area-inset-bottom)); }
   </style>
 </head>
-<body class="bg-[#F5F4EA] antialiased selection:bg-[#8BA68D] selection:text-white">
+<body class="bg-[#F5F4EA] antialiased overscroll-none selection:bg-[#8BA68D] selection:text-white">
   <div id="root"></div>
 
   <script type="text/babel" data-type="module" data-presets="react">
@@ -48,7 +46,7 @@
       ChevronLeft, Calendar, ClipboardList, Wallet, Ticket, Users, 
       ChevronDown, Sun, Plus, Plane, Building2, Check, Search, Bell, 
       ShoppingBag, PieChart, List, MapPin, ExternalLink, Navigation, 
-      RefreshCw, ArrowRightLeft, GripVertical, X, Trash2, Cloud
+      RefreshCw, ArrowRightLeft, GripVertical, X, Trash2, Cloud, Download
     } from 'lucide-react';
     import { initializeApp } from 'firebase/app';
     import { getFirestore, doc, setDoc, onSnapshot, updateDoc } from 'firebase/firestore';
@@ -75,43 +73,19 @@
           case 'calico':
             return (
               <svg viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50" fill="#E8B4A2" />
-                <path d="M25 40 L30 20 L45 32 Z" fill="#555" />
-                <path d="M75 40 L70 20 L55 32 Z" fill="#E67E22" />
-                <path d="M20 60 Q20 30 50 30 Q80 30 80 60 Q80 85 50 85 Q20 85 20 60" fill="white" />
-                <path d="M20 60 Q20 30 50 30 Q50 45 35 50 Q20 50 20 60 Z" fill="#555" />
-                <path d="M80 60 Q80 30 50 30 Q50 45 65 50 Q80 50 80 60 Z" fill="#E67E22" />
-                <path d="M25 60 L10 55 M25 65 L10 65 M25 70 L10 75 M75 60 L90 55 M75 65 L90 65 M75 70 L90 75" stroke="#333" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="40" cy="58" r="3.5" fill="#333" /><circle cx="60" cy="58" r="3.5" fill="#333" />
-                <circle cx="50" cy="66" r="2" fill="#333" />
+                <circle cx="50" cy="50" r="50" fill="#E8B4A2" /><path d="M25 40 L30 20 L45 32 Z" fill="#555" /><path d="M75 40 L70 20 L55 32 Z" fill="#E67E22" /><path d="M20 60 Q20 30 50 30 Q80 30 80 60 Q80 85 50 85 Q20 85 20 60" fill="white" /><path d="M20 60 Q20 30 50 30 Q50 45 35 50 Q20 50 20 60 Z" fill="#555" /><path d="M80 60 Q80 30 50 30 Q50 45 65 50 Q80 50 80 60 Z" fill="#E67E22" /><path d="M25 60 L10 55 M25 65 L10 65 M25 70 L10 75 M75 60 L90 55 M75 65 L90 65 M75 70 L90 75" stroke="#333" strokeWidth="1.5" strokeLinecap="round" /><circle cx="40" cy="58" r="3.5" fill="#333" /><circle cx="60" cy="58" r="3.5" fill="#333" /><circle cx="50" cy="66" r="2" fill="#333" />
               </svg>
             );
           case 'gray-tabby':
             return (
               <svg viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50" fill="#E8B4A2" />
-                <path d="M25 40 L30 20 L45 32 Z" fill="#7F8C8D" />
-                <path d="M75 40 L70 20 L55 32 Z" fill="#7F8C8D" />
-                <path d="M20 60 Q20 30 50 30 Q80 30 80 60 Q80 85 50 85 Q20 85 20 60" fill="#7F8C8D" />
-                <path d="M35 65 Q50 55 65 65 Q65 80 50 85 Q35 80 35 65 Z" fill="white" />
-                <path d="M50 30 L50 40 M40 32 L45 42 M60 32 L55 42" stroke="#34495E" strokeWidth="3" strokeLinecap="round" />
-                <path d="M25 60 L10 55 M25 65 L10 65 M25 70 L10 75 M75 60 L90 55 M75 65 L90 65 M75 70 L90 75" stroke="#333" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="40" cy="58" r="3.5" fill="#333" /><circle cx="60" cy="58" r="3.5" fill="#333" />
-                <circle cx="50" cy="66" r="2" fill="#333" />
+                <circle cx="50" cy="50" r="50" fill="#E8B4A2" /><path d="M25 40 L30 20 L45 32 Z" fill="#7F8C8D" /><path d="M75 40 L70 20 L55 32 Z" fill="#7F8C8D" /><path d="M20 60 Q20 30 50 30 Q80 30 80 60 Q80 85 50 85 Q20 85 20 60" fill="#7F8C8D" /><path d="M35 65 Q50 55 65 65 Q65 80 50 85 Q35 80 35 65 Z" fill="white" /><path d="M50 30 L50 40 M40 32 L45 42 M60 32 L55 42" stroke="#34495E" strokeWidth="3" strokeLinecap="round" /><path d="M25 60 L10 55 M25 65 L10 65 M25 70 L10 75 M75 60 L90 55 M75 65 L90 65 M75 70 L90 75" stroke="#333" strokeWidth="1.5" strokeLinecap="round" /><circle cx="40" cy="58" r="3.5" fill="#333" /><circle cx="60" cy="58" r="3.5" fill="#333" /><circle cx="50" cy="66" r="2" fill="#333" />
               </svg>
             );
           case 'fad7a':
             return (
               <svg viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50" fill="#E8B4A2" />
-                <path d="M25 40 L30 20 L45 32 Z" fill="#FAD7A1" />
-                <path d="M75 40 L70 20 L55 32 Z" fill="#FAD7A1" />
-                <path d="M20 60 Q20 30 50 30 Q80 30 80 60 Q80 85 50 85 Q20 85 20 60" fill="#FAD7A1" />
-                <path d="M35 65 Q50 55 65 65 Q65 80 50 85 Q35 80 35 65 Z" fill="white" />
-                <path d="M50 30 L50 40 M40 32 L45 42 M60 32 L55 42" stroke="#E67E22" strokeWidth="3" strokeLinecap="round" />
-                <path d="M25 60 L10 55 M25 65 L10 65 M25 70 L10 75 M75 60 L90 55 M75 65 L90 65 M75 70 L90 75" stroke="#333" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="40" cy="58" r="3.5" fill="#333" /><circle cx="60" cy="58" r="3.5" fill="#333" />
-                <circle cx="50" cy="66" r="2" fill="#333" />
+                <circle cx="50" cy="50" r="50" fill="#E8B4A2" /><path d="M25 40 L30 20 L45 32 Z" fill="#FAD7A1" /><path d="M75 40 L70 20 L55 32 Z" fill="#FAD7A1" /><path d="M20 60 Q20 30 50 30 Q80 30 80 60 Q80 85 50 85 Q20 85 20 60" fill="#FAD7A1" /><path d="M35 65 Q50 55 65 65 Q65 80 50 85 Q35 80 35 65 Z" fill="white" /><path d="M50 30 L50 40 M40 32 L45 42 M60 32 L55 42" stroke="#E67E22" strokeWidth="3" strokeLinecap="round" /><path d="M25 60 L10 55 M25 65 L10 65 M25 70 L10 75 M75 60 L90 55 M75 65 L90 65 M75 70 L90 75" stroke="#333" strokeWidth="1.5" strokeLinecap="round" /><circle cx="40" cy="58" r="3.5" fill="#333" /><circle cx="60" cy="58" r="3.5" fill="#333" /><circle cx="50" cy="66" r="2" fill="#333" />
               </svg>
             );
           default:
@@ -121,26 +95,11 @@
       return <div style={{ width: size, height: size }} className="rounded-full overflow-hidden shadow-sm bg-white flex-shrink-0">{draw()}</div>;
     };
 
-    const initialData = {
-      exchangeRate: 0.215,
-      itinerary: {
-        1: { date: '6/09 (二)', desc: '抵達福岡', events: [ { time: '15:10', title: '桃園機場 出發', type: '航班', color: '#F1948A', location: '桃園國際機場' }, { time: '18:20', title: '機場到著', type: '抵達', color: '#8BA18E', location: '福岡機場' }, { time: '19:30', title: 'AYA HOTELS 博多 1st Check-in', type: '住宿', color: '#A6808C', location: 'AYA HOTELS博多1st' }, { time: '20:30', title: '晚餐', type: '美食', color: '#F1C40F', location: '博多' } ] },
-        2: { date: '6/10 (三)', desc: '太宰府・天神', events: [ { time: '09:00', title: '筥崎宮紫陽花園', type: '景點', color: '#8BA18E', location: '筥崎宮' }, { time: '11:00', title: '太宰府', type: '景點', color: '#8BA18E', location: '太宰府天滿宮' }, { time: '12:30', title: '梅枝餅', type: '美食', color: '#F1C40F', location: '太宰府' }, { time: '14:00', title: '天神或博多運河城血拼', type: '購物', color: '#A6808C', location: '天神' }, { time: '18:30', title: '博多水炊雞肉鍋：阿吽舞鶴店', type: '美食', color: '#F1C40F', location: '阿吽 舞鶴店' } ] },
-        3: { date: '6/11 (四)', desc: '糸島・宮地嶽', events: [ { time: '09:30', title: '糸島櫻井二見浦 夫婦岩', type: '景點', color: '#8BA18E', location: '櫻井二見浦' }, { time: '11:30', title: '芥屋大門公園：龍貓森林步道', type: '景點', color: '#8BA18E', location: '芥屋大門公園' }, { time: '13:00', title: '糸島海鮮堂', type: '美食', color: '#F1C40F', location: '糸島海鮮堂' }, { time: '14:30', title: '手工花鹽布丁 またいちの塩', type: '美食', color: '#F1C40F', location: 'またいちの塩' }, { time: '16:00', title: '宮地嶽', type: '景點', color: '#8BA18E', location: '宮地嶽神社' } ] },
-        4: { date: '6/12 (五)', desc: '由布院散策', events: [ { time: '09:00', title: '由布院・湯布院', type: '景點', color: '#8BA18E', location: '湯布院' }, { time: '11:00', title: '金鱗湖', type: '景點', color: '#8BA18E', location: '金鱗湖' }, { time: '12:30', title: '豐後牛釜飯', type: '美食', color: '#F1C40F', location: '由布院' }, { time: '15:30', title: '返回博多', type: '交通', color: '#F1948A', location: '博多車站' }, { time: '18:30', title: '居酒屋 海風土：500円生魚片珠寶盒', type: '美食', color: '#F1C40F', location: '海風土' } ] },
-        5: { date: '6/13 (六)', desc: '博多市區觀光', events: [ { time: '10:00', title: '八幡宮', type: '景點', color: '#8BA18E', location: '八幡宮' }, { time: '13:00', title: '天神購物', type: '購物', color: '#A6808C', location: '天神' }, { time: '18:00', title: '博多運河城', type: '購物', color: '#A6808C', location: '博多運河城' } ] },
-        6: { date: '6/14 (日)', desc: '最後衝刺', events: [ { time: '10:00', title: '天神購物', type: '購物', color: '#A6808C', location: '天神' }, { time: '14:00', title: '博多運河城', type: '購物', color: '#A6808C', location: '博多運河城' }, { time: '19:20', title: '福岡機場 起飛', type: '航班', color: '#F1948A', location: '福岡國際機場' } ] },
-        7: { date: '6/15 (一)', desc: '平安歸家', events: [ { time: '08:00', title: '整理照片與回憶', type: '景點', color: '#8BA18E', location: '家' } ] }
-      },
-      checklist: [ { id: 1, text: '填寫 VJW 快速通關', checked: true }, { id: 2, text: '辦理國際駕照', checked: true }, { id: 3, text: '日幣換匯', checked: false } ],
-      wishlist: [ { id: 1, name: '茅乃舍 湯頭包', userId: 1, amount: '¥2,500', checked: false }, { id: 2, name: '獺祭 三割九分', userId: 2, amount: '¥5,600', checked: true }, { id: 3, name: 'Yojiya 護手霜', userId: 3, amount: '¥1,200', checked: false } ],
-      expenses: [ { id: 1, name: '博多水炊雞肉鍋 (3份)', userId: 1, amount: 9800, date: '6/10', tag: '美食' }, { id: 2, name: '糸島租車費', userId: 2, amount: 12000, date: '6/11', tag: '交通' }, { id: 3, name: '一蘭拉麵', userId: 3, amount: 3300, date: '6/12', tag: '美食' }, { id: 4, name: '超商零食', userId: 1, amount: 1500, date: '6/10', tag: '美食' } ]
-    };
-
     function App() {
       const [isAuthLoading, setIsAuthLoading] = useState(true);
       const [isDataLoading, setIsDataLoading] = useState(true);
       const [syncStatus, setSyncStatus] = useState('connecting');
+      const [lastSyncTime, setLastSyncTime] = useState(null);
 
       const [activeTab, setActiveTab] = useState('itinerary');
       const [prepareSubTab, setPrepareSubTab] = useState('checklist'); 
@@ -149,9 +108,6 @@
       const [selectedDay, setSelectedDay] = useState(1);
       const [expandedItem, setExpandedItem] = useState(null);
       
-      const [draggedIdx, setDraggedIdx] = useState(null);
-      const [dragOverIdx, setDragOverIdx] = useState(null);
-
       const [exchangeRate, setExchangeRate] = useState(0.215);
       const [calcJpy, setCalcJpy] = useState('');
       const [calcTwd, setCalcTwd] = useState('');
@@ -162,234 +118,122 @@
         { id: 3, name: '阿嫻', avatar: 'fad7a' },
       ]);
 
+      const [fullData, setFullData] = useState({});
       const [itineraryData, setItineraryData] = useState({});
       const [checklist, setChecklist] = useState([]);
       const [wishlist, setWishlist] = useState([]);
       const [expenses, setExpenses] = useState([]);
 
       useEffect(() => {
-        let isMounted = true;
-        signInAnonymously(auth)
-          .then(() => {
-            if(isMounted) setIsAuthLoading(false);
-          })
-          .catch((error) => {
-            console.error("Auth Error:", error);
-            if(isMounted) {
-              setSyncStatus('error');
-              setIsAuthLoading(false);
-            }
-          });
-        return () => { isMounted = false; };
+        signInAnonymously(auth).then(() => setIsAuthLoading(false)).catch(e => {
+          console.error("Auth Error:", e);
+          setIsAuthLoading(false);
+          setSyncStatus('error');
+        });
       }, []);
 
       useEffect(() => {
         if (isAuthLoading) return;
-
         const docRef = doc(db, 'trips', tripDocId);
         
         const unsubscribe = onSnapshot(docRef, (docSnap) => {
           if (docSnap.exists()) {
              const data = docSnap.data();
+             setFullData(data); // 儲存完整資料供備份使用
              setItineraryData(data.itinerary || {});
              setChecklist(data.checklist || []);
              setWishlist(data.wishlist || []);
              setExpenses(data.expenses || []);
              if(data.exchangeRate) setExchangeRate(data.exchangeRate);
              setSyncStatus('online');
+             setLastSyncTime(new Date().toLocaleTimeString());
              setIsDataLoading(false);
           } else {
-             setItineraryData(initialData.itinerary);
-             setChecklist(initialData.checklist);
-             setWishlist(initialData.wishlist);
-             setExpenses(initialData.expenses);
-             
-             setDoc(docRef, initialData).then(() => {
-                setSyncStatus('online');
-                setIsDataLoading(false);
-             }).catch(e => {
-                console.error("Init Error", e);
-                setSyncStatus('error');
-                setIsDataLoading(false);
-             });
+             // 重要：如果文件不見了，不主動重置，讓使用者知道狀態
+             setSyncStatus('not-found');
+             setIsDataLoading(false);
           }
         }, (err) => {
-          console.error("Snapshot error:", err);
+          console.error("Firestore Error:", err);
           setSyncStatus('error');
-          setItineraryData(prev => Object.keys(prev).length ? prev : initialData.itinerary);
-          setChecklist(prev => prev.length ? prev : initialData.checklist);
-          setWishlist(prev => prev.length ? prev : initialData.wishlist);
-          setExpenses(prev => prev.length ? prev : initialData.expenses);
           setIsDataLoading(false); 
         });
 
         return () => unsubscribe();
       }, [isAuthLoading]);
 
+      // 修改後的安全存檔函式
       const saveToCloud = async (field, data) => {
         try {
           const docRef = doc(db, 'trips', tripDocId);
-          await updateDoc(docRef, { [field]: data });
+          
+          // 使用 updateDoc 並精確指定路徑，防止整份資料被洗掉
+          await updateDoc(docRef, { 
+            [field]: data,
+            lastUpdated: new Date().getTime(), // 紀錄最後更新時間
+            updatedBy: auth.currentUser ? auth.currentUser.uid : 'anonymous'
+          });
+          
+          console.log(`${field} 已安全同步到雲端`);
         } catch (e) {
-          console.error("Save Error:", e);
+          console.error("同步失敗：", e);
+          // 如果是權限問題或網路問題，至少不要讓它去覆蓋別人的資料
         }
+      };
+
+      // 匯出備份功能
+      const exportBackup = () => {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fullData, null, 2));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", `fukuoka_backup_${new Date().toISOString().split('T')[0]}.json`);
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
       };
 
       const totalYen = expenses.reduce((s, e) => s + e.amount, 0);
 
       const [showAddEvent, setShowAddEvent] = useState(false);
       const [newEvent, setNewEvent] = useState({ time: '10:00', title: '', type: '景點', location: '' });
-
-      const [newChecklistText, setNewChecklistText] = useState('');
-
       const [showAddWishlist, setShowAddWishlist] = useState(false);
       const [newWishlist, setNewWishlist] = useState({ name: '', amount: '', userId: 1 });
-
       const [showAddExpense, setShowAddExpense] = useState(false);
       const [newExpense, setNewExpense] = useState({ name: '', amount: '', userId: 1, tag: '美食' });
 
-      const openGoogleMap = (query) => {
-        window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`, '_blank');
-      };
-
-      const handleJpyChange = (val) => {
-        setCalcJpy(val);
-        if (val === '') setCalcTwd('');
-        else setCalcTwd((parseFloat(val) * exchangeRate).toFixed(0));
-      };
-
-      const handleTwdChange = (val) => {
-        setCalcTwd(val);
-        if (val === '') setCalcJpy('');
-        else setCalcJpy((parseFloat(val) / exchangeRate).toFixed(0));
-      };
-
-      const handleExchangeRateChange = (val) => {
-        const newRate = parseFloat(val) || 0;
-        setExchangeRate(newRate);
-        saveToCloud('exchangeRate', newRate);
-      };
-
-      const handleDragStart = (e, index) => { setDraggedIdx(index); setExpandedItem(null); };
-      const handleDragEnter = (e, index) => { e.preventDefault(); setDragOverIdx(index); };
-      const handleDragEnd = () => { setDraggedIdx(null); setDragOverIdx(null); };
-      const handleDragOver = (e) => e.preventDefault();
-      
-      const handleDrop = (e) => {
-        e.preventDefault();
-        if (draggedIdx !== null && dragOverIdx !== null && draggedIdx !== dragOverIdx) {
-          const currentEvents = [...(itineraryData[selectedDay]?.events || [])];
-          const draggedEvent = currentEvents[draggedIdx];
-          currentEvents.splice(draggedIdx, 1);
-          currentEvents.splice(dragOverIdx, 0, draggedEvent);
-          
-          const newItinerary = { ...itineraryData, [selectedDay]: { ...itineraryData[selectedDay], events: currentEvents } };
-          setItineraryData(newItinerary); 
-          saveToCloud('itinerary', newItinerary); 
-        }
-        setDraggedIdx(null);
-        setDragOverIdx(null);
-      };
-
-      const getEventColor = (type) => {
-        switch(type) {
-          case '美食': return '#F1C40F';
-          case '購物': return '#A6808C';
-          case '交通': case '航班': return '#F1948A';
-          case '住宿': return '#A6808C';
-          default: return '#8BA18E';
-        }
-      };
-
+      // 事件處理
       const handleAddEvent = () => {
         if(!newEvent.title) return;
         const currentEvents = [...(itineraryData[selectedDay]?.events || [])];
-        currentEvents.push({ ...newEvent, color: getEventColor(newEvent.type) });
+        const colors = { '美食': '#F1C40F', '購物': '#A6808C', '交通': '#F1948A', '航班': '#F1948A', '住宿': '#A6808C' };
+        currentEvents.push({ ...newEvent, color: colors[newEvent.type] || '#8BA18E' });
         currentEvents.sort((a, b) => a.time.localeCompare(b.time));
-        
         const newItinerary = { ...itineraryData, [selectedDay]: { ...itineraryData[selectedDay], events: currentEvents } };
         setItineraryData(newItinerary);
         saveToCloud('itinerary', newItinerary);
-        
         setShowAddEvent(false);
-        setNewEvent({ time: '10:00', title: '', type: '景點', location: '' });
       };
 
       const toggleChecklist = (id) => {
-        const newChecklist = checklist.map(item => item.id === id ? { ...item, checked: !item.checked } : item);
-        setChecklist(newChecklist);
-        saveToCloud('checklist', newChecklist);
-      };
-
-      const handleAddChecklist = () => {
-        if(!newChecklistText.trim()) return;
-        const newChecklist = [...checklist, { id: Date.now(), text: newChecklistText, checked: false }];
-        setChecklist(newChecklist);
-        saveToCloud('checklist', newChecklist);
-        setNewChecklistText('');
-      };
-
-      const toggleWishlist = (id) => {
-        const newWishlist = wishlist.map(item => item.id === id ? { ...item, checked: !item.checked } : item);
-        setWishlist(newWishlist);
-        saveToCloud('wishlist', newWishlist);
-      };
-
-      const handleAddWishlist = () => {
-        if(!newWishlist.name) return;
-        const newWishlistData = [...wishlist, { ...newWishlist, id: Date.now(), amount: newWishlist.amount.includes('¥') ? newWishlist.amount : `¥${newWishlist.amount}`, checked: false }];
-        setWishlist(newWishlistData);
-        saveToCloud('wishlist', newWishlistData);
-        setShowAddWishlist(false);
-        setNewWishlist({ name: '', amount: '', userId: 1 });
+        const newData = checklist.map(item => item.id === id ? { ...item, checked: !item.checked } : item);
+        setChecklist(newData);
+        saveToCloud('checklist', newData);
       };
 
       const handleAddExpense = () => {
         if(!newExpense.name || !newExpense.amount) return;
         const expenseDate = itineraryData[selectedDay]?.date?.split(' ')[0] || `6/${8+selectedDay}`;
-        const newExpenses = [...expenses, { ...newExpense, id: Date.now(), amount: parseInt(newExpense.amount), date: expenseDate }];
-        setExpenses(newExpenses);
-        saveToCloud('expenses', newExpenses);
+        const newData = [...expenses, { ...newExpense, id: Date.now(), amount: parseInt(newExpense.amount), date: expenseDate }];
+        setExpenses(newData);
+        saveToCloud('expenses', newData);
         setShowAddExpense(false);
-        setNewExpense({ name: '', amount: '', userId: 1, tag: '美食' });
-      };
-
-      const handleDeleteEvent = (e, day, idx) => {
-        e.stopPropagation();
-        const currentEvents = [...(itineraryData[day]?.events || [])];
-        currentEvents.splice(idx, 1);
-        const newItinerary = { ...itineraryData, [day]: { ...itineraryData[day], events: currentEvents } };
-        setItineraryData(newItinerary);
-        saveToCloud('itinerary', newItinerary);
-        setExpandedItem(null);
-      };
-
-      const handleDeleteChecklist = (e, id) => {
-        e.stopPropagation();
-        const newChecklist = checklist.filter(item => item.id !== id);
-        setChecklist(newChecklist);
-        saveToCloud('checklist', newChecklist);
-      };
-
-      const handleDeleteWishlist = (e, id) => {
-        e.stopPropagation();
-        const newWishlistData = wishlist.filter(item => item.id !== id);
-        setWishlist(newWishlistData);
-        saveToCloud('wishlist', newWishlistData);
-      };
-
-      const handleDeleteExpense = (e, id) => {
-        e.stopPropagation();
-        const newExpenses = expenses.filter(item => item.id !== id);
-        setExpenses(newExpenses);
-        saveToCloud('expenses', newExpenses);
       };
 
       if (isAuthLoading || isDataLoading) {
         return (
           <div className="min-h-screen bg-[#F5F4EA] flex flex-col items-center justify-center gap-4">
             <div className="w-12 h-12 border-4 border-[#8BA68D] border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-[#8BA68D] font-black tracking-widest text-sm animate-pulse">正在準備放飛畫布...</p>
+            <p className="text-[#8BA68D] font-black tracking-widest text-sm animate-pulse">正在安全連線中...</p>
           </div>
         );
       }
@@ -410,10 +254,10 @@
               </div>
             </div>
             <div className="flex justify-between items-center ml-1 mt-2">
-               <p className="text-[10px] text-[#A69E83] font-bold uppercase tracking-wider">2026/06/09 - 2026/06/15</p>
+               <p className="text-[10px] text-[#A69E83] font-bold uppercase tracking-wider">2026/06/09 - 06/15</p>
                <div className={`flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full ${syncStatus === 'online' ? 'bg-[#8BA68D]/10 text-[#8BA68D]' : 'bg-red-100 text-red-500'}`}>
                  <Cloud size={10} />
-                 {syncStatus === 'online' ? '雲端已同步' : '連線異常 (仍可編輯)'}
+                 {syncStatus === 'online' ? `已同步 ${lastSyncTime}` : '同步異常'}
                </div>
             </div>
           </header>
@@ -436,92 +280,22 @@
                     <button key={d} onClick={() => {setSelectedDay(d); setExpandedItem(null);}} className={`flex-shrink-0 w-[4.5rem] py-3 rounded-2xl flex flex-col items-center transition-all border ${selectedDay === d ? 'bg-[#8BA68D] text-white border-[#8BA68D] shadow-md' : 'bg-white text-[#A69E83] border-slate-50'}`}><span className="text-[9px] font-bold opacity-80 uppercase">Day {d}</span><span className="text-xs font-black">6/{8+d}</span></button>
                   ))}
                 </div>
-                
                 <div className="flex justify-end pr-2">
-                  <button onClick={() => setShowAddEvent(true)} className="flex items-center gap-1.5 bg-[#8BA68D] text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-sm hover:scale-105 transition-transform">
-                    <Plus size={12} /> 新增行程
-                  </button>
+                  <button onClick={() => setShowAddEvent(true)} className="flex items-center gap-1.5 bg-[#8BA68D] text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-sm hover:scale-105 transition-transform"><Plus size={12} /> 新增行程</button>
                 </div>
-
                 <div className="space-y-3 pb-8 relative">
                    <div className="absolute left-[34px] top-6 bottom-6 w-[1px] bg-[#E5E2D0]"></div>
                    {itineraryData[selectedDay]?.events?.map((item, idx) => (
-                     <div key={`${selectedDay}-${item.title}-${idx}`} draggable onDragStart={(e) => handleDragStart(e, idx)} onDragEnter={(e) => handleDragEnter(e, idx)} onDragEnd={handleDragEnd} onDragOver={handleDragOver} onDrop={handleDrop} className={`flex flex-col gap-2 relative transition-all duration-300 cursor-grab active:cursor-grabbing ${draggedIdx === idx ? 'opacity-40 scale-[0.98]' : 'opacity-100'}`}>
+                     <div key={idx} className="flex flex-col gap-2 relative">
                         <div className="flex items-center gap-3">
                           <div className="z-10 bg-[#F5F4EA] py-1"><div className="w-2.5 h-2.5 rounded-full border-[2.5px] border-white shadow-sm" style={{ backgroundColor: item.color }}></div></div>
-                          <div onClick={() => setExpandedItem(expandedItem === idx ? null : idx)} className={`flex-1 bg-white rounded-[1.5rem] px-4 py-4 shadow-sm flex justify-between items-center active:bg-slate-50 transition-all ${expandedItem === idx ? 'ring-2 ring-[#8BA68D]/20 border-white' : 'border border-white'} ${dragOverIdx === idx && draggedIdx !== idx ? 'border-t-2 border-t-[#8BA68D] shadow-md -translate-y-1' : ''}`}>
+                          <div onClick={() => setExpandedItem(expandedItem === idx ? null : idx)} className="flex-1 bg-white rounded-[1.5rem] px-4 py-4 shadow-sm flex justify-between items-center active:bg-slate-50 transition-all border border-white">
                             <div className="flex items-center gap-3"><GripVertical size={16} className="text-[#D1CFBC]" /><span className="text-xs font-black text-[#4A4439] w-10">{item.time}</span><div className="w-[1px] h-3 bg-[#F2F1E8]"></div><div><span className="text-[9px] font-bold text-[#A69E83] block uppercase mb-0.5">{item.type}</span><h4 className="text-[13px] font-black text-[#4A4439] tracking-tight">{item.title}</h4></div></div><ChevronDown size={14} className={`text-[#D1CFBC] transition-transform ${expandedItem === idx ? 'rotate-180' : ''}`} />
                           </div>
                         </div>
-                        {expandedItem === idx && (
-                          <div className="ml-[46px] animate-in slide-in-from-top-2 duration-200">
-                            <div onClick={(e) => { e.stopPropagation(); openGoogleMap(item.location || item.title); }} className="bg-white rounded-2xl p-2 border border-slate-100 shadow-inner cursor-pointer overflow-hidden group/map">
-                              <div className="h-24 w-full bg-[#E5E2D0] rounded-xl relative overflow-hidden flex items-center justify-center"><MapPin className="text-[#F1948A] animate-bounce" size={20} /><div className="absolute bottom-2 right-2 bg-white p-1.5 rounded-lg shadow-md transition-transform"><Navigation size={12} className="text-[#8BA68D]" /></div></div>
-                              <div className="px-2 py-2 flex justify-between items-center text-[10px] font-bold text-[#A69E83]"><span>點擊開啟 Google Maps：{item.location || item.title}</span><ExternalLink size={12} /></div>
-                            </div>
-                            <div className="mt-2 flex justify-end">
-                              <button onClick={(e) => handleDeleteEvent(e, selectedDay, idx)} className="flex items-center gap-1 text-[10px] font-bold text-red-400 hover:text-red-500 bg-red-50 px-2 py-1 rounded-lg transition-colors">
-                                <Trash2 size={12} /> 刪除此行程
-                              </button>
-                            </div>
-                          </div>
-                        )}
                      </div>
                    ))}
                 </div>
-              </div>
-            )}
-
-            {activeTab === 'prepare' && (
-              <div className="space-y-5 animate-in fade-in duration-300">
-                <div className="flex bg-white/50 p-1 rounded-2xl border border-white shadow-sm">
-                  <button onClick={() => setPrepareSubTab('checklist')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black transition-all ${prepareSubTab === 'checklist' ? 'bg-[#8BA68D] text-white shadow-md' : 'text-[#A69E83]'}`}><ClipboardList size={16} /> 準備清單</button>
-                  <button onClick={() => setPrepareSubTab('shopping')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black transition-all ${prepareSubTab === 'shopping' ? 'bg-[#8BA68D] text-white shadow-md' : 'text-[#A69E83]'}`}><ShoppingBag size={16} /> 想買清單</button>
-                </div>
-                {prepareSubTab === 'checklist' ? (
-                  <section className="bg-white rounded-[2rem] p-6 shadow-sm border border-white">
-                    <h3 className="font-black text-[#4A4439] mb-4 flex items-center gap-2"><span className="w-1.5 h-6 bg-[#8BA68D] rounded-full"></span>重要事項</h3>
-                    <div className="space-y-3 mb-6">
-                      {checklist.map((item) => (
-                        <div key={item.id} className="flex items-center justify-between cursor-pointer group" onClick={() => toggleChecklist(item.id)}>
-                          <div className="flex items-center gap-3">
-                            <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors ${item.checked ? 'bg-[#8BA68D] border-[#8BA68D]' : 'border-[#E5E2D0] bg-[#F5F4EA]'}`}>{item.checked && <Check size={12} className="text-white" strokeWidth={4} />}</div>
-                            <span className={`text-[13px] font-bold transition-all ${item.checked ? 'text-[#8BA68D] line-through opacity-60' : 'text-[#5C5446]'}`}>{item.text}</span>
-                          </div>
-                          <button onClick={(e) => handleDeleteChecklist(e, item.id)} className="text-[#D1CFBC] hover:text-red-400 p-1 rounded-full transition-colors"><X size={16}/></button>
-                        </div>
-                      ))}
-                    </div>
-                    
-                    <div className="flex items-center gap-2 border-t border-slate-100 pt-4">
-                       <input 
-                         type="text" 
-                         value={newChecklistText}
-                         onChange={(e) => setNewChecklistText(e.target.value)}
-                         placeholder="新增準備事項..." 
-                         className="flex-1 bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-xs font-bold focus:ring-2 focus:ring-[#8BA68D]"
-                         onKeyPress={(e) => e.key === 'Enter' && handleAddChecklist()}
-                       />
-                       <button onClick={handleAddChecklist} className="bg-[#8BA68D] text-white p-2 rounded-xl hover:bg-[#7a957c]"><Plus size={16}/></button>
-                    </div>
-                  </section>
-                ) : (
-                  <div className="space-y-4 pb-8">
-                    <div className="flex justify-end pr-2">
-                      <button onClick={() => setShowAddWishlist(true)} className="flex items-center gap-1.5 bg-[#8BA68D] text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-sm hover:scale-105 transition-transform">
-                        <Plus size={12} /> 新增想買
-                      </button>
-                    </div>
-                    {wishlist.map((item) => (
-                      <div key={item.id} onClick={() => toggleWishlist(item.id)} className="bg-white rounded-[1.8rem] p-4 border border-white shadow-sm flex items-center gap-4 cursor-pointer active:scale-[0.98] transition-transform">
-                        <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${item.checked ? 'bg-[#8BA68D] text-white' : 'bg-[#F5F4EA] border-[#E5E2D0] border'}`}><Check size={16} strokeWidth={4} className={item.checked ? "opacity-100" : "opacity-0"} /></div>
-                        <div className="flex-1"><h4 className={`text-[13px] font-black transition-all ${item.checked ? 'text-[#A69E83] line-through' : ''}`}>{item.name}</h4><span className="text-[10px] font-bold text-[#A69E83]">{members.find(m => m.id === item.userId)?.name}</span></div>
-                        <span className="text-[10px] font-bold text-[#A69E83]">{item.amount}</span>
-                        <button onClick={(e) => handleDeleteWishlist(e, item.id)} className="text-[#D1CFBC] hover:text-red-400 p-1.5 rounded-full transition-colors ml-1"><Trash2 size={16}/></button>
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
             )}
 
@@ -530,189 +304,55 @@
                  <div className="bg-[#F1C40F] rounded-[2.5rem] p-7 text-white shadow-lg relative overflow-hidden">
                    <div className="relative z-10">
                      <span className="text-[10px] font-black tracking-widest bg-black/10 px-3 py-1 rounded-full uppercase">Total Expenses</span>
-                     <div className="flex items-baseline gap-2 mt-4">
-                       <span className="text-sm font-bold opacity-90">NT$</span>
-                       <h2 className="text-4xl font-black tracking-tighter">{(totalYen * exchangeRate).toLocaleString(undefined, {maximumFractionDigits:0})}</h2>
-                     </div>
+                     <div className="flex items-baseline gap-2 mt-4"><span className="text-sm font-bold opacity-90">NT$</span><h2 className="text-4xl font-black tracking-tighter">{(totalYen * exchangeRate).toLocaleString(undefined, {maximumFractionDigits:0})}</h2></div>
                      <div className="mt-2 flex items-center gap-2 opacity-80 text-[11px] font-bold"><RefreshCw size={12} /><span>累積支出：¥ {totalYen.toLocaleString()}</span></div>
                    </div>
                    <div className="absolute -right-6 -bottom-6 opacity-20 rotate-12"><Wallet size={120}/></div>
                 </div>
-                
-                <div className="bg-white rounded-[2rem] p-6 border border-white shadow-sm space-y-4">
-                  <div className="flex items-center justify-between mb-2"><h4 className="font-black text-sm flex items-center gap-2 text-[#4A4439]"><ArrowRightLeft size={16} className="text-[#F1C40F]" /> 匯率計算機</h4><div className="flex items-center gap-1.5 bg-[#F5F4EA] px-3 py-1 rounded-full"><span className="text-[10px] font-bold text-[#A69E83]">匯率設定:</span><input type="number" step="0.001" value={exchangeRate} onChange={(e) => handleExchangeRateChange(e.target.value)} className="w-12 bg-transparent border-none p-0 text-[10px] font-black focus:ring-0 text-[#4A4439]" /></div></div>
-                  <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-3">
-                    <div className="space-y-1"><label className="text-[9px] font-black text-[#A69E83] uppercase ml-1">日幣 JPY</label><div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-black text-[#A69E83]">¥</span><input type="number" placeholder="0" value={calcJpy} onChange={(e) => handleJpyChange(e.target.value)} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2.5 pl-7 pr-3 text-sm font-black focus:ring-2 focus:ring-[#F1C40F]" /></div></div>
-                    <div className="pt-5 text-[#D1CFBC]"><ArrowRightLeft size={14} /></div>
-                    <div className="space-y-1"><label className="text-[9px] font-black text-[#A69E83] uppercase ml-1">台幣 TWD</label><div className="relative"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-black text-[#A69E83]">$</span><input type="number" placeholder="0" value={calcTwd} onChange={(e) => handleTwdChange(e.target.value)} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2.5 pl-7 pr-3 text-sm font-black focus:ring-2 focus:ring-[#F1C40F]" /></div></div>
-                  </div>
-                </div>
-
                 <div className="flex bg-white/50 p-1 rounded-2xl border border-white shadow-sm">
                   <button onClick={() => setWalletSubTab('details')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black transition-all ${walletSubTab === 'details' ? 'bg-[#8BA68D] text-white shadow-md' : 'text-[#A69E83]'}`}><List size={16} /> 消費明細</button>
                   <button onClick={() => setWalletSubTab('stats')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black transition-all ${walletSubTab === 'stats' ? 'bg-[#8BA68D] text-white shadow-md' : 'text-[#A69E83]'}`}><PieChart size={16} /> 代付統計</button>
                 </div>
-
-                {walletSubTab === 'details' ? (
-                  <div className="space-y-3 pb-8">
-                      <div className="flex justify-end pr-2">
-                            <button onClick={() => setShowAddExpense(true)} className="flex items-center gap-1.5 bg-[#8BA68D] text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-sm hover:scale-105 transition-transform">
-                          <Plus size={12} /> 新增支出
-                        </button>
-                      </div>
-                      {expenses.map((item) => (
-                        <div key={item.id} className="bg-white rounded-[1.8rem] p-4 border border-white shadow-sm flex justify-between items-center">
-                          <div className="flex items-center gap-3"><CatAvatar type={members.find(m => m.id === item.userId)?.avatar} size={42} /><div><p className="text-[13px] font-black text-[#4A4439]">{item.name}</p><div className="flex items-center gap-2"><span className="text-[9px] px-1.5 py-0.5 bg-[#F5F4EA] rounded-md text-[#A69E83] font-bold">{item.tag}</span><p className="text-[10px] font-bold text-[#A69E83]">{item.date}</p></div></div></div>
-                          <div className="flex items-center gap-3">
-                            <div className="text-right"><p className="text-sm font-black text-[#4A4439]">¥ {item.amount.toLocaleString()}</p><p className="text-[9px] font-bold text-[#A69E83]">NT$ {(item.amount * exchangeRate).toFixed(0)}</p></div>
-                            <button onClick={(e) => handleDeleteExpense(e, item.id)} className="text-[#D1CFBC] hover:text-red-400 p-1.5 rounded-full transition-colors ml-1"><Trash2 size={16}/></button>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                ) : (
-                  <div className="bg-white rounded-[2rem] p-6 border border-white shadow-sm space-y-6 pb-8">
-                     <div className="flex justify-between items-center"><h4 className="font-black text-sm flex items-center gap-2"><Users size={16} className="text-[#8BA68D]" /> 成員代付統計</h4><span className="text-[10px] font-bold text-[#A69E83]">總計: ¥{totalYen.toLocaleString()}</span></div>
-                     <div className="space-y-6">
-                       {members.map(member => {
-                         const memberTotal = expenses.filter(e => e.userId === member.id).reduce((sum, e) => sum + e.amount, 0);
-                         const percentage = totalYen > 0 ? (memberTotal / totalYen) * 100 : 0;
-                         return (
-                           <div key={member.id} className="group">
-                             <div className="flex items-center gap-3 mb-2"><CatAvatar type={member.avatar} size={36} /><div className="flex-1"><div className="flex justify-between items-end"><span className="text-[13px] font-black text-[#4A4439]">{member.name}</span><div className="text-right"><span className="text-[12px] font-black block text-[#4A4439]">¥{memberTotal.toLocaleString()}</span><span className="text-[9px] font-bold text-[#A69E83]">約 NT${(memberTotal * exchangeRate).toFixed(0)}</span></div></div></div></div>
-                             <div className="h-2.5 w-full bg-[#F5F4EA] rounded-full overflow-hidden"><div className="h-full bg-[#8BA68D] rounded-full transition-all duration-1000 ease-out shadow-[0_0_8px_rgba(139,166,141,0.3)]" style={{ width: `${percentage}%` }}></div></div>
-                           </div>
-                         );
-                       })}
-                     </div>
-                  </div>
+                {walletSubTab === 'details' && (
+                   <div className="space-y-3 pb-8">
+                     <div className="flex justify-end pr-2"><button onClick={() => setShowAddExpense(true)} className="flex items-center gap-1.5 bg-[#8BA68D] text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-sm hover:scale-105 transition-transform"><Plus size={12} /> 新增支出</button></div>
+                     {expenses.map((item) => (
+                       <div key={item.id} className="bg-white rounded-[1.8rem] p-4 border border-white shadow-sm flex justify-between items-center">
+                         <div className="flex items-center gap-3"><CatAvatar type={members.find(m => m.id === item.userId)?.avatar} size={42} /><div><p className="text-[13px] font-black text-[#4A4439]">{item.name}</p><p className="text-[10px] font-bold text-[#A69E83]">{item.date}</p></div></div>
+                         <div className="text-right"><p className="text-sm font-black text-[#4A4439]">¥ {item.amount.toLocaleString()}</p></div>
+                       </div>
+                     ))}
+                   </div>
                 )}
               </div>
             )}
 
-            {bookingSubTab === 'flight' && activeTab === 'booking' ? (
-              <div className="space-y-5 animate-in fade-in duration-300">
-                <div className="flex bg-white/50 p-1 rounded-2xl border border-white shadow-sm">
-                  <button onClick={() => setBookingSubTab('flight')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black transition-all ${bookingSubTab === 'flight' ? 'bg-[#8BA68D] text-white shadow-md' : 'text-[#A69E83]'}`}><Plane size={16} /> 機票</button>
-                  <button onClick={() => setBookingSubTab('hotel')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black transition-all ${bookingSubTab === 'hotel' ? 'bg-[#8BA68D] text-white shadow-md' : 'text-[#A69E83]'}`}><Building2 size={16} /> 住宿</button>
-                </div>
-                <div className="space-y-6 pb-8">
-                  {/* 去程機票 */}
-                  <div className="bg-white rounded-[2.5rem] overflow-hidden border border-white shadow-sm relative">
-                    <div className="bg-[#F1C40F] px-6 py-3 flex justify-between items-center text-white">
-                      <span className="text-[11px] font-black tracking-widest uppercase">Departure Flight (去程)</span>
-                      <Plane size={16} className="rotate-45" />
-                    </div>
-                    <div className="p-8">
-                      <div className="flex justify-between items-center mb-8">
-                        <div><h2 className="text-4xl font-black text-[#4A4439] tracking-tighter">TPE</h2><p className="text-[10px] font-bold text-[#A69E83] mt-1">台北桃園 T1</p></div>
-                        <div className="flex-1 flex flex-col items-center px-4"><div className="w-full h-[1px] border-b border-dashed border-[#D1CFBC] relative"><Plane size={14} className="absolute left-1/2 -top-[7px] -translate-x-1/2 text-[#F1C40F] bg-white px-0.5" /></div><div className="text-[9px] font-bold text-[#A69E83] mt-1 uppercase">Direct</div></div>
-                        <div className="text-right"><h2 className="text-4xl font-black text-[#4A4439] tracking-tighter">FUK</h2><p className="text-[10px] font-bold text-[#A69E83] mt-1">福岡國際</p></div>
-                      </div>
-                      <div className="flex justify-between items-center pt-6 border-t border-slate-50">
-                        <div><p className="text-[10px] font-bold text-[#A69E83] mb-1 uppercase tracking-wider text-left">Departure Date</p><p className="text-base font-black text-[#4A4439] text-left">06 / 09 (火)</p></div>
-                        <div className="text-right"><p className="text-[10px] font-bold text-[#A69E83] mb-1 uppercase tracking-wider text-right">Departure Time</p><p className="text-base font-black text-[#8BA68D] text-right">15 : 10</p></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 回程機票 */}
-                  <div className="bg-white rounded-[2.5rem] overflow-hidden border border-white shadow-sm relative">
-                    <div className="bg-[#F1948A] px-6 py-3 flex justify-between items-center text-white">
-                      <span className="text-[11px] font-black tracking-widest uppercase">Return Flight (回程)</span>
-                      <Plane size={16} className="rotate-[225deg]" />
-                    </div>
-                    <div className="p-8">
-                      <div className="flex justify-between items-center mb-8">
-                        <div><h2 className="text-4xl font-black text-[#4A4439] tracking-tighter">FUK</h2><p className="text-[10px] font-bold text-[#A69E83] mt-1">福岡國際</p></div>
-                        <div className="flex-1 flex flex-col items-center px-4"><div className="w-full h-[1px] border-b border-dashed border-[#D1CFBC] relative"><Plane size={14} className="absolute left-1/2 -top-[7px] -translate-x-1/2 text-[#F1948A] bg-white px-0.5 transform -scale-x-100" /></div><div className="text-[9px] font-bold text-[#A69E83] mt-1 uppercase">Direct</div></div>
-                        <div className="text-right"><h2 className="text-4xl font-black text-[#4A4439] tracking-tighter">TPE</h2><p className="text-[10px] font-bold text-[#A69E83] mt-1">台北桃園 T1</p></div>
-                      </div>
-                      <div className="flex justify-between items-center pt-6 border-t border-slate-50">
-                        <div><p className="text-[10px] font-bold text-[#A69E83] mb-1 uppercase tracking-wider text-left">Return Date</p><p className="text-base font-black text-[#4A4439] text-left">06 / 14 (日)</p></div>
-                        <div className="text-right"><p className="text-[10px] font-bold text-[#A69E83] mb-1 uppercase tracking-wider text-right">Return Time</p><p className="text-base font-black text-[#8BA68D] text-right">19 : 20</p></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : activeTab === 'booking' ? (
-               <div className="space-y-5 animate-in fade-in duration-300">
-                <div className="flex bg-white/50 p-1 rounded-2xl border border-white shadow-sm">
-                  <button onClick={() => setBookingSubTab('flight')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black transition-all ${bookingSubTab === 'flight' ? 'bg-[#8BA68D] text-white shadow-md' : 'text-[#A69E83]'}`}><Plane size={16} /> 機票</button>
-                  <button onClick={() => setBookingSubTab('hotel')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black transition-all ${bookingSubTab === 'hotel' ? 'bg-[#8BA68D] text-white shadow-md' : 'text-[#A69E83]'}`}><Building2 size={16} /> 住宿</button>
-                </div>
-                <div className="bg-white rounded-[2rem] p-6 shadow-sm border border-white">
-                  <div className="flex items-start gap-4 mb-6"><Building2 size={24} className="text-[#A6808C]" /><div><h4 className="text-lg font-black text-[#4A4439]">AYA HOTELS博多1st</h4><p className="text-xs font-bold text-[#A69E83] mt-1">Hakata, Fukuoka</p></div></div>
-                  <div className="bg-[#F5F4EA] rounded-2xl p-4 space-y-3 text-[11px] font-bold">
-                     <div className="flex items-center gap-3"><MapPin size={16} className="text-[#A69E83]" /><p>福岡市博多區博多站東... (已預訂)</p></div>
-                     <div className="flex items-center gap-3"><Calendar size={16} className="text-[#A69E83]" /><p>入住：6/09 - 6/15 (6晚)</p></div>
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
             {activeTab === 'members' && (
-              <div className="space-y-6 animate-in fade-in duration-300">
+              <div className="space-y-6 animate-in fade-in duration-300 pb-8">
                 <div className="bg-[#8BA68D] rounded-[2.5rem] p-8 text-white text-center"><h3 className="text-2xl font-black mb-1">同行旅伴</h3><p className="text-[11px] font-bold opacity-80">放飛小組共 {members.length} 人</p></div>
                 <div className="grid grid-cols-2 gap-4">
                   {members.map((m) => (<div key={m.id} className="bg-white rounded-[2.5rem] p-6 flex flex-col items-center border border-white shadow-sm"><CatAvatar type={m.avatar} size={75} /><h5 className="font-black mt-4 text-[15px] text-[#4A4439]">{m.name}</h5></div>))}
+                </div>
+                {/* 備份按鈕 */}
+                <div className="bg-white rounded-[2rem] p-6 border border-[#8BA68D]/20 shadow-sm flex flex-col items-center gap-3">
+                   <h4 className="text-sm font-black">資料安全中心</h4>
+                   <p className="text-[10px] text-[#A69E83] text-center">建議每天晚上將行程備份一次，<br/>下載的檔案可以傳到 LINE 群組存檔。</p>
+                   <button onClick={exportBackup} className="flex items-center gap-2 bg-[#8BA68D] text-white px-6 py-3 rounded-2xl text-xs font-black shadow-md active:scale-95 transition-all"><Download size={16}/> 立即下載資料備份 (JSON)</button>
                 </div>
               </div>
             )}
           </main>
 
-          {/* === 新增表單 Modals === */}
+          {/* 新增表單 Modals (簡略版) */}
           {showAddEvent && (
             <div className="fixed inset-0 bg-[#5C5446]/40 backdrop-blur-sm z-[200] flex items-center justify-center p-4">
-               <div className="bg-white rounded-[2rem] p-6 w-full max-w-sm shadow-xl animate-in fade-in zoom-in-95 duration-200">
-                 <div className="flex justify-between items-center mb-5">
-                   <h3 className="font-black text-[#4A4439]">新增 Day {selectedDay} 行程</h3>
-                   <button onClick={() => setShowAddEvent(false)} className="text-[#A69E83] p-1 bg-[#F5F4EA] rounded-full hover:bg-slate-100"><X size={16}/></button>
-                 </div>
+               <div className="bg-white rounded-[2rem] p-6 w-full max-w-sm shadow-xl">
+                 <div className="flex justify-between items-center mb-5"><h3 className="font-black">新增行程</h3><button onClick={() => setShowAddEvent(false)}><X size={16}/></button></div>
                  <div className="space-y-4">
-                    <div><label className="text-[10px] font-bold text-[#A69E83] block mb-1">時間</label><input type="time" value={newEvent.time} onChange={e => setNewEvent({...newEvent, time: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]" /></div>
-                    <div><label className="text-[10px] font-bold text-[#A69E83] block mb-1">行程名稱 (必填)</label><input type="text" placeholder="例如：逛天神地下街" value={newEvent.title} onChange={e => setNewEvent({...newEvent, title: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]" /></div>
-                    <div><label className="text-[10px] font-bold text-[#A69E83] block mb-1">類型</label><select value={newEvent.type} onChange={e => setNewEvent({...newEvent, type: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]"><option value="景點">景點</option><option value="美食">美食</option><option value="購物">購物</option><option value="交通">交通</option></select></div>
-                    <div><label className="text-[10px] font-bold text-[#A69E83] block mb-1">地點關鍵字 (供 Google Maps 搜尋)</label><input type="text" placeholder="例如：Tenjin Underground Shopping Center" value={newEvent.location} onChange={e => setNewEvent({...newEvent, location: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]" /></div>
-                    <button onClick={handleAddEvent} className="w-full bg-[#8BA68D] text-white font-black py-3 rounded-xl mt-2 hover:bg-[#7a957c] active:scale-95 transition-all">確認新增</button>
-                 </div>
-               </div>
-            </div>
-          )}
-
-          {showAddWishlist && (
-            <div className="fixed inset-0 bg-[#5C5446]/40 backdrop-blur-sm z-[200] flex items-center justify-center p-4">
-               <div className="bg-white rounded-[2rem] p-6 w-full max-w-sm shadow-xl animate-in fade-in zoom-in-95 duration-200">
-                 <div className="flex justify-between items-center mb-5">
-                   <h3 className="font-black text-[#4A4439]">新增想買清單</h3>
-                   <button onClick={() => setShowAddWishlist(false)} className="text-[#A69E83] p-1 bg-[#F5F4EA] rounded-full hover:bg-slate-100"><X size={16}/></button>
-                 </div>
-                 <div className="space-y-4">
-                    <div><label className="text-[10px] font-bold text-[#A69E83] block mb-1">物品名稱 (必填)</label><input type="text" placeholder="例如：雪肌精防曬" value={newWishlist.name} onChange={e => setNewWishlist({...newWishlist, name: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]" /></div>
-                    <div><label className="text-[10px] font-bold text-[#A69E83] block mb-1">預估金額 (日幣)</label><input type="text" placeholder="例如：2500" value={newWishlist.amount} onChange={e => setNewWishlist({...newWishlist, amount: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]" /></div>
-                    <div><label className="text-[10px] font-bold text-[#A69E83] block mb-1">許願者</label><select value={newWishlist.userId} onChange={e => setNewWishlist({...newWishlist, userId: Number(e.target.value)})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]">{members.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}</select></div>
-                    <button onClick={handleAddWishlist} className="w-full bg-[#8BA68D] text-white font-black py-3 rounded-xl mt-2 hover:bg-[#7a957c] active:scale-95 transition-all">確認新增</button>
-                 </div>
-               </div>
-            </div>
-          )}
-
-          {showAddExpense && (
-            <div className="fixed inset-0 bg-[#5C5446]/40 backdrop-blur-sm z-[200] flex items-center justify-center p-4">
-               <div className="bg-white rounded-[2rem] p-6 w-full max-w-sm shadow-xl animate-in fade-in zoom-in-95 duration-200">
-                 <div className="flex justify-between items-center mb-5">
-                   <h3 className="font-black text-[#4A4439]">新增共同支出</h3>
-                   <button onClick={() => setShowAddExpense(false)} className="text-[#A69E83] p-1 bg-[#F5F4EA] rounded-full hover:bg-slate-100"><X size={16}/></button>
-                 </div>
-                 <div className="space-y-4">
-                    <div><label className="text-[10px] font-bold text-[#A69E83] block mb-1">支出名稱 (必填)</label><input type="text" placeholder="例如：計程車資" value={newExpense.name} onChange={e => setNewExpense({...newExpense, name: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]" /></div>
-                    <div><label className="text-[10px] font-bold text-[#A69E83] block mb-1">金額 (日幣 ¥ - 必填)</label><input type="number" placeholder="例如：1500" value={newExpense.amount} onChange={e => setNewExpense({...newExpense, amount: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]" /></div>
-                    <div className="flex gap-3">
-                       <div className="flex-1"><label className="text-[10px] font-bold text-[#A69E83] block mb-1">代付者</label><select value={newExpense.userId} onChange={e => setNewExpense({...newExpense, userId: Number(e.target.value)})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]">{members.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}</select></div>
-                       <div className="flex-1"><label className="text-[10px] font-bold text-[#A69E83] block mb-1">類別</label><select value={newExpense.tag} onChange={e => setNewExpense({...newExpense, tag: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold focus:ring-2 focus:ring-[#8BA68D]"><option value="美食">美食</option><option value="交通">交通</option><option value="購物">購物</option><option value="門票">門票</option><option value="其他">其他</option></select></div>
-                    </div>
-                    <button onClick={handleAddExpense} className="w-full bg-[#F1C40F] text-white font-black py-3 rounded-xl mt-2 hover:bg-[#d4ac0d] active:scale-95 transition-all">確認新增</button>
+                    <input type="time" value={newEvent.time} onChange={e => setNewEvent({...newEvent, time: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold" />
+                    <input type="text" placeholder="行程名稱" value={newEvent.title} onChange={e => setNewEvent({...newEvent, title: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold" />
+                    <select value={newEvent.type} onChange={e => setNewEvent({...newEvent, type: e.target.value})} className="w-full bg-[#F5F4EA] border-none rounded-xl py-2 px-3 text-sm font-bold"><option value="景點">景點</option><option value="美食">美食</option><option value="交通">交通</option></select>
+                    <button onClick={handleAddEvent} className="w-full bg-[#8BA68D] text-white font-black py-3 rounded-xl mt-2">確認新增</button>
                  </div>
                </div>
             </div>
@@ -720,9 +360,7 @@
 
           <nav className="fixed bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-[2.5rem] px-6 py-3 flex justify-between items-center shadow-xl border border-white/50 max-w-[calc(448px-2rem)] mx-auto z-[100]">
             <NavBtn icon={<Calendar size={20}/>} label="行程" active={activeTab === 'itinerary'} onClick={() => setActiveTab('itinerary')} />
-            <NavBtn icon={<ClipboardList size={20}/>} label="準備" active={activeTab === 'prepare'} onClick={() => setActiveTab('prepare')} />
             <NavBtn icon={<Wallet size={20}/>} label="記帳" active={activeTab === 'wallet'} onClick={() => setActiveTab('wallet')} />
-            <NavBtn icon={<Ticket size={20}/>} label="預訂" active={activeTab === 'booking'} onClick={() => setActiveTab('booking')} />
             <NavBtn icon={<Users size={20}/>} label="成員" active={activeTab === 'members'} onClick={() => setActiveTab('members')} />
           </nav>
         </div>
@@ -730,7 +368,7 @@
     }
 
     const NavBtn = ({ icon, label, active, onClick }) => (
-      <button onClick={onClick} className={`flex flex-col items-center gap-1.5 p-1 transition-all duration-300 ${active ? 'text-[#8BA68D] scale-110' : 'text-[#A69E83] opacity-70 hover:opacity-100'}`}>
+      <button onClick={onClick} className={`flex flex-col items-center gap-1.5 p-1 transition-all duration-300 ${active ? 'text-[#8BA68D] scale-110' : 'text-[#A69E83] opacity-70'}`}>
         <div className={`p-1.5 rounded-xl ${active ? 'bg-[#8BA68D]/10' : ''}`}>{icon}</div>
         <span className="text-[10px] font-black">{label}</span>
       </button>
@@ -738,19 +376,6 @@
 
     const root = createRoot(document.getElementById('root'));
     root.render(<App />);
-
-    // Register Service Worker for PWA support
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(reg => {
-            console.log('Service Worker registered:', reg);
-          })
-          .catch(err => {
-            console.log('Service Worker registration failed:', err);
-          });
-      });
-    }
   </script>
 </body>
 </html>
