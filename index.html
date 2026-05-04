@@ -229,9 +229,17 @@
       const saveToCloud = async (field, data) => {
         try {
           const docRef = doc(db, 'trips', tripDocId);
-          await updateDoc(docRef, { [field]: data });
+          
+          // 使用 updateDoc 並精確指定路徑，防止整份資料被洗掉
+          await updateDoc(docRef, { 
+            [field]: data,
+            lastUpdated: new Date().getTime(), // 紀錄最後更新時間
+            updatedBy: auth.currentUser ? auth.currentUser.uid : 'anonymous'
+          });
+          
+          console.log(`${field} 已安全同步到雲端`);
         } catch (e) {
-          console.error("Save Error:", e);
+          console.error("同步失敗：", e);
         }
       };
 
